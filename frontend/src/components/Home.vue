@@ -1,7 +1,7 @@
 <template>
 <section class="container">
     <h1>Taggle</h1>
-    <p>Classify Kaggle competitions by tag.</p>
+    <p>Find Kaggle competitions with various tags.</p>
     <span v-if="loading">now loading...</span>
     <table class="table table-hover" v-if="!loading">
         <thead>
