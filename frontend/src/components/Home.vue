@@ -3,22 +3,23 @@
   <div class="my-4">
     <h1>Taggle</h1>
     <p>Find Kaggle competitions with various tags.</p>
-    <input v-model="query" type="text" class="form-control" placeholder="search">
+    <input v-model="query" type="text" class="form-control" placeholder="Search">
   </div>
   <span v-if="loading">now loading...</span>
-  <table class="table table-sm" v-if="!loading">
-    <tbody>
-      <tr class="row" v-for="compe in filteredCompetitions" :key="compe.id">
-        <td class="col-5">
-          <img class="rounded float-left m-2" :src="compe.image" alt="" width=60 height=60>
-          <a :href="compe.url">{{compe.name}}</a>
-          <br>
-          {{compe.startdate.format('YYYY-MM-DD')}} / {{compe.enddate.format('YYYY-MM-DD')}}
-        </td>
-        <td class="col-7"><span v-for="tag in compe.tags.split(',')" :key="tag" class="badge badge-dark m-1">{{tag}}</span></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="list-group list-group-flush" v-if="!loading">
+    <button class="list-group-item list-group-item-action justify-content-between" v-for="compe in filteredCompetitions" :key="compe.id">
+      <div class="row">
+        <div class="col-6">
+          <img class="rounded float-left mr-2" :src="compe.image" alt="" width=60 height=60>
+          <p><a :href="compe.url">{{compe.name}}</a><br><small>{{compe.startdate.format('YYYY-MM-DD')}} / {{compe.enddate.format('YYYY-MM-DD')}}</small></p>
+        </div>
+        <div class="col-5">
+          <p><span v-for="tag in compe.tags.split(',')" :key="tag" class="badge badge-secondary m-1">{{tag}}</span></p>
+        </div>
+        <div class="col-1 text-right d-flex align-items-center justify-content-end"><span class="badge badge-light badge-pill">14</span></div>
+      </div>
+    </button>
+  </div>
 </section>
 </template>
 
@@ -37,11 +38,11 @@ export default {
   computed: {
     filteredCompetitions: function () {
       if (!this.query) return this.competitions
-      const regs = this.query.split(',').map(q => {
-        return new RegExp(q.trim())
+      const regs = this.query.split(/\s/).map(q => {
+        return new RegExp(q.trim(), 'i')
       })
       return this.competitions.filter(compe => {
-        return regs.every(reg => reg.test(compe.tags))
+        return regs.every(reg => reg.test(compe.tags) || reg.test(compe.name))
       })
     }
   },
