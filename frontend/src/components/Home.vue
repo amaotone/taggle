@@ -1,10 +1,6 @@
 <template>
 <section class="container">
-  <div class="my-4">
-    <h1>Taggle</h1>
-    <p>Find Kaggle competitions with various tags.</p>
-    <input v-model="query" type="text" class="form-control" placeholder="Search">
-  </div>
+  <site-header></site-header>
   <span v-if="loading">Now Loading...</span>
   <div class="list-group" v-if="!loading">
     <button class="list-group-item list-group-item-action" v-for="compe in filteredCompetitions" :key="compe.id" @click="compe.showLinks = !compe.showLinks">
@@ -21,16 +17,7 @@
           </div>
       </div>
       <div v-if="compe.showLinks">
-        <ul class="list-group pt-2">
-          <li class="list-group-item">
-            <a href="#">1st place solution</a>
-            <span class="badge badge-dark mx-1">table</span>
-          </li>
-          <li class="list-group-item">
-            <a href="#">1st place solution</a>
-            <span class="badge badge-dark mx-1">table</span>
-          </li>
-        </ul>
+        <link-list></link-list>
       </div>
     </button>
   </div>
@@ -39,7 +26,11 @@
 
 <script>
 import db from './firebaseInit'
+import SiteHeader from './SiteHeader'
+import LinkList from './LinkList'
+
 var moment = require('moment')
+
 export default {
   name: 'home',
   data () {
@@ -48,6 +39,10 @@ export default {
       competitions: [],
       loading: true
     }
+  },
+  components: {
+    LinkList,
+    SiteHeader
   },
   computed: {
     filteredCompetitions: function () {
