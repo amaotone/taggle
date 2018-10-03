@@ -7,7 +7,7 @@
   </div>
   <span v-if="loading">Now Loading...</span>
   <div class="list-group" v-if="!loading">
-    <button class="list-group-item list-group-item-action" v-for="compe in filteredCompetitions" :key="compe.id" v-on:click="compe.showLinks = !compe.showLinks">
+    <button class="list-group-item list-group-item-action" v-for="compe in filteredCompetitions" :key="compe.id" @click="compe.showLinks = !compe.showLinks">
       <div class="row">
         <div class="col-6 d-flex justify-content-start align-items-start">
           <div class="align-self-start mr-2"><img class="rounded" :src="compe.image" alt="" width=60 height=60></div>
@@ -62,7 +62,6 @@ export default {
   },
   created () {
     db.collection('competitions').get().then((snapshot) => {
-      this.loading = false
       snapshot.forEach((doc) => {
         let data = {
           'id': doc.id,
@@ -78,6 +77,7 @@ export default {
         this.competitions.push(data)
       })
       this.competitions.sort((a, b) => b.startdate - a.startdate)
+      this.loading = false
     })
   }
 }
