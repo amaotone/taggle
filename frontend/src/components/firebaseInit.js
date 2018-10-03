@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import 'firebase/firestore'
+
 const firebaseApp = firebase.initializeApp({
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'taggle-8cd4d.firebaseapp.com',
