@@ -1,7 +1,12 @@
+import Vue from 'vue'
+import VueFirestore from 'vue-firestore'
 import firebase from 'firebase'
-import 'firebase/firestore'
 
-const firebaseApp = firebase.initializeApp({
+require('firebase/firestore')
+
+Vue.use(VueFirestore)
+
+var firebaseApp = firebase.initializeApp({
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'taggle-8cd4d.firebaseapp.com',
   databaseURL: 'https://taggle-8cd4d.firebaseio.com',
@@ -9,4 +14,5 @@ const firebaseApp = firebase.initializeApp({
   storageBucket: 'taggle-8cd4d.appspot.com',
   messagingSenderId: '181612162187'
 })
-export default firebaseApp.firestore()
+const firestore = firebaseApp.firestore()
+export default firestore
