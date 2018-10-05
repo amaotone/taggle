@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueFirestore from 'vue-firestore'
-import firebase from 'firebase'
-
-require('firebase/firestore')
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 
 Vue.use(VueFirestore)
 
@@ -15,4 +14,5 @@ var firebaseApp = firebase.initializeApp({
   messagingSenderId: '181612162187'
 })
 const firestore = firebaseApp.firestore()
+firestore.settings({timestampsInSnapshots: true})
 export default firestore

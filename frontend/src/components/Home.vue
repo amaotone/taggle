@@ -64,8 +64,8 @@ export default {
           'id': doc['.key'],
           'name': doc['name'],
           'url': 'http://www.kaggle.com' + doc['url'],
-          'startdate': moment(doc['start']),
-          'enddate': moment(doc['end']),
+          'startdate': moment(doc['start'].toDate()),
+          'enddate': moment(doc['end'].toDate()),
           'image': doc['image'],
           'tags': Object.keys(doc['tags']),
           'showLinks': false
